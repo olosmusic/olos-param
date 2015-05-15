@@ -1,0 +1,56 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+olos-param represents parameters
+##### Example
+
+
+@element olos-param
+@blurb 
+@status alpha
+@homepage http://olosmusic.github.io/olos-param
+-->
+<polymer-element name="olos-param" attributes="scope callback">
+  <template>
+  </template>
+
+  <script>
+    (function(params){
+
+      Polymer('olos-param', {
+
+        /**
+         *  scope should be a reference to this param's parent element
+         *
+         *  @property scope
+         *  @type Object
+         */
+        scope: null,
+
+        /**
+         *  what to do when setValueAtTime is called
+         *  
+         *  @property callback
+         *  @type Function
+         */
+        callback: null,
+
+        /**
+         *  This method passes all arguments to the callback method.
+         *  The arguments are typically 'time', 'value'.
+         *  
+         *  @method setValueAtTime
+         *  @param Number time
+         *  @param Array/Object value 
+         */
+        setValueAtTime: function() {
+          var args = arguments;
+          var self = this;
+          self.callback.apply(self.scope, args);
+        }
+
+      });
+
+    })();
+  </script>
+</polymer-element>
