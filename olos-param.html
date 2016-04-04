@@ -1,0 +1,76 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+olos-param represents parameters
+##### Example
+
+    <olos-param id="param"></olos-param>
+
+    this.$.param.scope = this;
+    this.$.param.callback = myCallbackFunction
+
+@element olos-param
+@blurb 
+@status alpha
+@homepage http://olosmusic.github.io/olos-param
+-->
+<dom-module id="olos-param">
+  <template>
+  </template>
+  <script>
+    (function (params) {
+      Polymer({
+        is: 'olos-param',
+        properties: {
+          /**
+           *  this param may contain an audioParam
+           *
+           *  @property audioParam
+           *  @type AudioParam
+           */
+          audioParam: {
+            value: null,
+            notify: true,
+            observer: 'audioParamChanged'
+          },
+          /**
+           *  what to do when setValueAtTime is called
+           *  
+           *  @property callback
+           *  @type Function
+           */
+          callback: {
+            value: null,
+            notify: true
+          },
+          /**
+           *  scope should be a reference to this param's parent element
+           *
+           *  @property scope
+           *  @type Object
+           */
+          scope: {
+            value: null,
+            notify: true
+          }
+        },
+        /**
+         *  This method passes all arguments to the callback method.
+         *  The arguments are typically 'time', 'value'.
+         *  
+         *  @method setValueAtTime
+         *  @param Array/Object value 
+         *  @param Number time
+         */
+        setValueAtTime: function () {
+          var args = arguments;
+          var self = this;
+          self.callback.apply(self.scope, args);
+        },
+        audioParamChanged: function () {
+          var self = this;
+        }
+      });
+    }());
+  </script>
+</dom-module>
